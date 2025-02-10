@@ -4,6 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { Appointment } from "../../@types";
 import Input from "../input/input.component";
 import ConfirmDialog from "../confirm/confirm.component";
+import { useNavigate } from "react-router-dom";
 
 const INITIAL_APPOINTMENT: Appointment = {
   id: `${Date.now()}-${Math.random()}`,
@@ -18,6 +19,7 @@ const INITIAL_APPOINTMENT: Appointment = {
 };
 
 const Form = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState<Appointment>(INITIAL_APPOINTMENT);
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [confirmationMessage, setConfirmationMessage] = useState<string | null>(
@@ -51,10 +53,25 @@ const Form = () => {
       newAppointment,
     ]);
 
+    const savedAppointments = JSON.parse(
+      localStorage.getItem("appointments") || "[]"
+    );
+    savedAppointments.push(newAppointment);
+    localStorage.setItem("appointments", JSON.stringify(savedAppointments));
+    
     setConfirmationMessage("Your appointment has been booked successfully!");
     setTimeout(() => setConfirmationMessage(null), 3000);
     setFormData(INITIAL_APPOINTMENT);
+
+    
   };
+  const doctorPage = () =>{
+navigate("/doctor");
+  }
+
+
+
+  
 
   return (
     <div>
@@ -125,14 +142,16 @@ const Form = () => {
 
         <button type="submit">Submit</button>
       </form>
-
       <ConfirmDialog
         isOpen={isDialogOpen}
         onConfirm={confirmSubmit}
         onCancel={() => setIsDialogOpen(false)}
       />
+      <button type="button" onClick={doctorPage}>
+        Go to the doctor page{" "}
+      </button>
 
-      {/* Display the list of appointments */}
+      ;{/* Display the list of appointments */}
       <div>
         <h3>List of Appointments</h3>
         {appointments.length > 0 ? (
