@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { IUserData } from "../types/types";
+import { IUserData } from "../types/@user";
 
 interface IAuthContext{
     user: IUserData | null; 

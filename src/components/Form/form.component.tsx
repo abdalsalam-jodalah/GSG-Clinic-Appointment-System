@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { Appointment } from "../../@types";
+import { Appointment } from "../../types/@appointment";
 import Input from "../input/input.component";
 import ConfirmDialog from "../confirm/confirm.component";
 import { useNavigate } from "react-router-dom";
