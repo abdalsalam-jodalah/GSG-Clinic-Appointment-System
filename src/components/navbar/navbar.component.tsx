@@ -1,6 +1,6 @@
 import React from 'react'
 
-const DashboardScreen = () => {
+const Navbar = () => {
     return (
         <>
 
@@ -8,4 +8,4 @@ const DashboardScreen = () => {
     )
 }
 
-export default DashboardScreen
+export default Navbar
