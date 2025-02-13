@@ -74,7 +74,7 @@ navigate("/doctor");
   
 
   return (
-    <div>
+    <div className="form-container">
       <form onSubmit={handleSubmit}>
         <h2>Create Appointment</h2>
 
