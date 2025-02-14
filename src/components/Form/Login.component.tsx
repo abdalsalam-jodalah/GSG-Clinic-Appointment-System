@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { AuthContext } from "../../providers/authProvider";
+import './Login.css';
 
 
 const Login = () => {
@@ -21,7 +22,7 @@ const Login = () => {
     }
   }
   return (
-    <div>
+    <div className="login-form">
       <form onSubmit={handleSubmit}>
         <input id="username" type="text" placeholder="Email" required/>
         <input id="password" type="password" placeholder="Password" />

@@ -33,6 +33,7 @@ function App() {
                     <Route path="/dashboard" element={get_guarded_screen(["doctor"], <DashboardScreen />)} />
                     <Route path="/doctor" element={get_guarded_screen(["doctor"], <ManageAppointmentsScreen />)} />
 
+
                     <Route path="*" element={<NotFoundScreen />} />
                 </Routes>
             </Router>

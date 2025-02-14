@@ -9,10 +9,10 @@ const ConfirmDialog = (props: IProps) => {
 
   return (
     <div>
-      <p>Are you sure you want to save this appointment?</p>
-      <div>
-        <button onClick={props.onCancel}>Cancel</button>
-        <button onClick={props.onConfirm}>Confirm</button>
+      <p >Are you sure you want to save?</p>
+      <div >
+        <button onClick={props.onCancel} >Cancel</button>
+        <button onClick={props.onConfirm} >Save</button>
       </div>
     </div>
   );
