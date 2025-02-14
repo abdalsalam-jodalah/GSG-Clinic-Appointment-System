@@ -25,7 +25,7 @@ function App() {
 
   return (
     <>
-        <Navbar />
+        <Navbar/>
         <Router>
             <Routes>
                 <Route path="/signup" element={get_guarded_screen(<LoginScreen/>)} />
@@ -37,6 +37,8 @@ function App() {
                 <Route path='*' element={get_guarded_screen(<NotFoundScreen />)} />
             </Routes>
         </Router>
+        <Navbar/>
+
     </>
   )
 }
