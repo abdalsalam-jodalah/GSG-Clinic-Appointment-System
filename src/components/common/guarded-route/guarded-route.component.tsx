@@ -1,30 +1,31 @@
-import React, { useContext } from 'react'
-import { AuthContext } from '../../../providers/authProvider';
-import { Link } from 'react-router-dom';
-import { Role } from '../../../types/@role.ts';
+import React, { useContext } from "react";
+import { AuthContext } from "../../../providers/authProvider";
+import { Link } from "react-router-dom";
+import { UserRole } from "../../../types/@user.ts";
 
 interface IProps {
   children: React.ReactNode;
-  roles: Role[];
+  roles: UserRole[];
 }
 
-const Guarded = (props: IProps) => {
-  const { user} = useContext(AuthContext);
-    const loading = "test" 
+const Guarded: React.FC<IProps> = ({ children, roles }) => {
+  const { user } = useContext(AuthContext);
+  // const { user, loading } = useContext(AuthContext);
 
-  if (loading) {
-    return null;
-  }
+  // if (loading) {
+  //   return <p>Loading...</p>; // Show a loading message while authentication is in progress
+  // }
 
-  if (user === null) { // User is not logged in
+  if (!user) {
     return (
       <div>
         <h2>You must be logged in to see this screen!</h2>
-        <Link to='/login'>Login in here</Link>
+        <Link to="/login">Login here</Link>
       </div>
     );
-} else if (!props.roles.includes(Role.ADMIN)) {  // User doesn't have permission
-// } else if (!props.roles.includes(user.role)) {  // User doesn't have permission
+  }
+
+  if (!roles.includes(user.role)) {
     return (
       <div>
         <h2>You don't have sufficient permissions to see this screen!</h2>
@@ -32,7 +33,7 @@ const Guarded = (props: IProps) => {
     );
   }
 
-  return props.children;
-}
+  return <>{children}</>;
+};
 
 export default Guarded;
