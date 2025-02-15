@@ -10,8 +10,8 @@ const Header = () => {
     //
     <>
         <div className="title-login">
-            {context.user?.userName ? <div>
-                {context.user.userName}
+            {context.user?.name ? <div>
+                {context.user.name}
                 <button onClick={context.logout}>Logout</button>
             </div> : "you need to login"
 }

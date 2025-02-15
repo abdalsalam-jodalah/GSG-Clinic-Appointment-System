@@ -1,5 +1,5 @@
-import Header from '../Header/Header.component';
-import Login from '../Form/Login.component';
+import Header from '../header/header.component.tsx';
+import Login from '../form/login.component.tsx';
 import { AuthContext } from '../../providers/authProvider';
 import { useContext } from "react";
 import './MainLogin.css';
@@ -11,7 +11,7 @@ const MainLogin = () => {
         <Header />
         {context.user ? (
           context.user.role === "doctor" ? (
-            "Welcome to Dashboard"
+            "Welcome to DashboardComponent"
           ) : context.user.role === "patient" ? (
             "Welcome to Clinic Appointments"
           ) : null

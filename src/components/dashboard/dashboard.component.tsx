@@ -12,7 +12,7 @@ import {
   Legend,
 } from "chart.js";
 import { useEffect, useState } from "react";
-import { Appointment } from "../@types";
+import { Appointment } from "../../types/@appointment.ts";
 
 ChartJS.register(
   CategoryScale,
@@ -23,11 +23,11 @@ ChartJS.register(
   Legend
 );
 
-const Dashboard: React.FC = () => {
+const DashboardComponent: React.FC = () => {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   useEffect(() => {
     const storedAppointments = JSON.parse(
-      localStorage.getItem("appointments") || "[]"
+      localStorage.getItem("appointments-manage") || "[]"
     );
     setAppointments(storedAppointments);
   }, []);
@@ -112,4 +112,4 @@ const Dashboard: React.FC = () => {
   );
 };
 
-export default Dashboard;
+export default DashboardComponent;
