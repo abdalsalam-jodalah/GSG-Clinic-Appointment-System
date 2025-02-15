@@ -1,5 +1,4 @@
-import React from 'react'
-import MainLogin from '../components/main-login/MainLogin.component'
+import MainLogin from '../components/main-login/login.component.tsx'
 
 const LoginScreen = () => {
   return (
