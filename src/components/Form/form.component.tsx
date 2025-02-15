@@ -21,10 +21,10 @@ const INITIAL_APPOINTMENT: Appointment = {
 const Form = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState<Appointment>(INITIAL_APPOINTMENT);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // @ts-ignore
   const [appointments, setAppointments] = useState<Appointment[]>([]);
-  const [confirmationMessage, setConfirmationMessage] = useState<string | null>(
-    null
-  );
+  const [confirmationMessage, setConfirmationMessage] = useState<string | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const handleChange = (field: string, value: any) => {
@@ -41,151 +41,84 @@ const Form = () => {
 
   const confirmSubmit = () => {
     setIsDialogOpen(false);
-    console.log("Appointment Submitted:", formData);
 
     const newAppointment = {
       ...formData,
       id: `${Date.now()}-${Math.random()}`,
     };
 
-    setAppointments((prevAppointments) => [
-      ...prevAppointments,
-      newAppointment,
-    ]);
+    setAppointments((prevAppointments) => [...prevAppointments, newAppointment]);
 
-    const savedAppointments = JSON.parse(
-      localStorage.getItem("appointments") || "[]"
-    );
+    const savedAppointments = JSON.parse(localStorage.getItem("appointments-manage") || "[]");
     savedAppointments.push(newAppointment);
-    localStorage.setItem("appointments", JSON.stringify(savedAppointments));
-    
+    localStorage.setItem("appointments-manage", JSON.stringify(savedAppointments));
+
     setConfirmationMessage("Your appointment has been booked successfully!");
     setTimeout(() => setConfirmationMessage(null), 3000);
     setFormData(INITIAL_APPOINTMENT);
-
-    
   };
-  const doctorPage = () =>{
-navigate("/doctor");
-  }
-
-
-
-  
 
   return (
-    <div className="form-container">
-      <form onSubmit={handleSubmit}>
-        <h2>Create Appointment</h2>
+      <div className="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md mt-10">
+        <h2 className="text-2xl font-bold text-gray-800 mb-4">Create Appointment</h2>
 
-        {confirmationMessage && <div>{confirmationMessage}</div>}
-
-        <Input
-          label="Patient Name"
-          name="patientName"
-          type="text"
-          value={formData.patientName}
-          onChange={(e) => handleChange("patientName", e.target.value)}
-        />
-        <Input
-          label="Contact"
-          name="contact"
-          type="text"
-          value={formData.contact}
-          onChange={(e) => handleChange("contact", e.target.value)}
-        />
-        <Input
-          label="Age"
-          name="age"
-          type="number"
-          value={formData.age}
-          onChange={(e) => handleChange("age", Number(e.target.value))}
-        />
-        <Input
-          label="Gender"
-          name="gender"
-          type="select"
-          value={formData.gender}
-          onChange={(e) =>
-            handleChange("gender", e.target.value as "Male" | "Female")
-          }
-          options={["Male", "Female"]}
-        />
-        <Input
-          label="Symptoms"
-          name="symptoms"
-          type="textarea"
-          value={formData.symptoms}
-          onChange={(e) => handleChange("symptoms", e.target.value)}
-        />
-        <Input
-          label="Notes"
-          name="notes"
-          type="textarea"
-          value={formData.notes}
-          onChange={(e) => handleChange("notes", e.target.value)}
-        />
-
-        {/* Date Picker */}
-        <div>
-          <label>Date & Time</label>
-          <DatePicker
-            selected={formData.date}
-            onChange={(date) => handleChange("date", date)}
-            showTimeSelect
-            dateFormat="Pp"
-            timeIntervals={15}
-            minTime={new Date(new Date().setHours(9, 0, 0))}
-            maxTime={new Date(new Date().setHours(17, 0, 0))}
-          />
-        </div>
-
-        <button type="submit">Submit</button>
-      </form>
-      <ConfirmDialog
-        isOpen={isDialogOpen}
-        onConfirm={confirmSubmit}
-        onCancel={() => setIsDialogOpen(false)}
-      />
-      <button type="button" onClick={doctorPage}>
-        Go to the doctor page{" "}
-      </button>
-
-      ;{/* Display the list of appointments */}
-      <div>
-        <h3>List of Appointments</h3>
-        {appointments.length > 0 ? (
-          appointments.map((appointment) => (
-            <div key={appointment.id}>
-              <p>
-                <strong>Patient Name:</strong> {appointment.patientName}
-              </p>
-              <p>
-                <strong>Contact:</strong> {appointment.contact}
-              </p>
-              <p>
-                <strong>Age:</strong> {appointment.age}
-              </p>
-              <p>
-                <strong>Gender:</strong> {appointment.gender}
-              </p>
-              <p>
-                <strong>Symptoms:</strong> {appointment.symptoms}
-              </p>
-              <p>
-                <strong>Notes:</strong> {appointment.notes}
-              </p>
-              <p>
-                <strong>Date & Time:</strong>{" "}
-                {appointment.date.toLocaleString()}
-              </p>
+        {confirmationMessage && (
+            <div className="bg-green-100 text-green-700 p-3 rounded-md text-center mb-3">
+              {confirmationMessage}
             </div>
-          ))
-        ) : (
-          <p>No appointments yet!</p>
         )}
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <Input label="Patient Name" name="patientName" type="text" value={formData.patientName}
+                 onChange={(e) => handleChange("patientName", e.target.value)}
+          />
+          <Input label="Contact" name="contact" type="text" value={formData.contact}
+                 onChange={(e) => handleChange("contact", e.target.value)}
+          />
+          <Input label="Age" name="age" type="number" value={formData.age}
+                 onChange={(e) => handleChange("age", Number(e.target.value))}
+          />
+          <Input label="Gender" name="gender" type="select" value={formData.gender}
+                 onChange={(e) => handleChange("gender", e.target.value as "Male" | "Female")}
+                 options={["Male", "Female"]}
+          />
+          <Input label="Symptoms" name="symptoms" type="textarea" value={formData.symptoms}
+                 onChange={(e) => handleChange("symptoms", e.target.value)}
+          />
+          <Input label="Notes" name="notes" type="textarea" value={formData.notes}
+                 onChange={(e) => handleChange("notes", e.target.value)}
+          />
+
+          {/* Date Picker */}
+          <div>
+            <label className="block text-gray-700 font-semibold mb-1">Date & Time</label>
+            <DatePicker
+                selected={formData.date}
+                onChange={(date) => handleChange("date", date)}
+                showTimeSelect
+                dateFormat="Pp"
+                timeIntervals={15}
+                minTime={new Date(new Date().setHours(9, 0, 0))}
+                maxTime={new Date(new Date().setHours(17, 0, 0))}
+                className="w-full p-2 border rounded-md"
+            />
+          </div>
+
+          <button type="submit" className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 rounded-lg">
+            Submit
+          </button>
+        </form>
+
+        <ConfirmDialog isOpen={isDialogOpen} onConfirm={confirmSubmit} onCancel={() => setIsDialogOpen(false)} />
+
+        <button
+            type="button"
+            onClick={() => navigate("/doctor")}
+            className="mt-4 w-full bg-gray-700 hover:bg-gray-800 text-white font-semibold py-2 rounded-lg"
+        >
+          Go to the doctor page
+        </button>
       </div>
-    </div>
   );
 };
 
