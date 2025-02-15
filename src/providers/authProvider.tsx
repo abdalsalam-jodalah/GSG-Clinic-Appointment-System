@@ -1,38 +1,50 @@
 import { createContext, useEffect, useState } from "react";
-import { IUserData } from "../types/@user";
+import { IUser } from "../types/@user"; // Import the IUser interface
 
-interface IAuthContext{
-    user: IUserData | null; 
-    login: (data: IUserData) => void; 
-    logout: () => void; 
+interface IAuthContext {
+    user: IUser | null;
+    login: (data: IUser) => void;
+    logout: () => void;
 }
-export const AuthContext = createContext<IAuthContext>({user : null, login : () => { }, logout : () => { } });
 
-export const AuthProvider = (props : {children : React.ReactNode}) =>{
-    const [user, setUser] = useState<IUserData | null>(null);
-    // Retrieve user from localStorage on page refresh
+export const AuthContext = createContext<IAuthContext>({
+    user: null,
+    login: () => {},
+    logout: () => {},
+});
+
+export const AuthProvider = (props: { children: React.ReactNode }) => {
+    const [user, setUser] = useState<IUser | null>(null);
+
     useEffect(() => {
         const storedUser = localStorage.getItem("user");
         if (storedUser) {
-            setUser(JSON.parse(storedUser)); // Parse and set user data
+            try {
+                setUser(JSON.parse(storedUser)); // Parse and set user data
+            } catch (error) {
+                console.error("Error parsing user data from localStorage:", error);
+                localStorage.removeItem("user"); // Clean up invalid data
+            }
         }
     }, []);
-    const login = (data : IUserData) =>{
-        if(data.userName.length >= 3){
+
+    const login = (data: IUser) => {
+        if (data.email.length >= 3) {
             setUser(data);
-            localStorage.setItem('user', JSON.stringify(data));
-        }else{
+            localStorage.setItem("user", JSON.stringify(data));
+        } else {
             setUser(null);
         }
-    }
-    const logout = () =>{
-        setUser(null);
-        localStorage.removeItem('user');
-    }
-    
-    const value = {user, login, logout};
+    };
 
-    return(
+    const logout = () => {
+        setUser(null);
+        localStorage.removeItem("user");
+    };
+
+    const value = { user, login, logout };
+
+    return (
         <AuthContext.Provider value={value}>{props.children}</AuthContext.Provider>
-    )
-}
+    );
+};
