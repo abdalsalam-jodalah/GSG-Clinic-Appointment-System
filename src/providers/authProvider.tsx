@@ -29,12 +29,13 @@ export const AuthProvider = (props: { children: React.ReactNode }) => {
     }, []);
 
     const login = (data: IUser) => {
-        if (data.email.length >= 3) {
-            setUser(data);
-            localStorage.setItem("user", JSON.stringify(data));
-        } else {
-            setUser(null)
+        if (!data || !data.email || data.email.length < 3) {
+            setUser(null);
+            return;
         }
+    
+        setUser(data);
+        localStorage.setItem("user", JSON.stringify(data));
     };
 
     const logout = () => {
