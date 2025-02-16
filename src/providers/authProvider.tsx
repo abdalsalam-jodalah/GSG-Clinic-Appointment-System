@@ -33,7 +33,7 @@ export const AuthProvider = (props: { children: React.ReactNode }) => {
             setUser(data);
             localStorage.setItem("user", JSON.stringify(data));
         } else {
-            setUser(null);
+            setUser(null)
         }
     };
 
