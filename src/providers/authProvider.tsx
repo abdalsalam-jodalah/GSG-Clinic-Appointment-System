@@ -29,11 +29,11 @@ export const AuthProvider = (props: { children: React.ReactNode }) => {
     }, []);
 
     const login = (data: IUser) => {
-        if (!data || !data.email || data.email.length < 3) {
-            setUser(null);
-            return;
-        }
-    
+        // if (!data || !data.email || data.email.length < 3) {
+        //     setUser(null);
+        //     return;
+        // }
+        console.log(data);
         setUser(data);
         localStorage.setItem("user", JSON.stringify(data));
     };

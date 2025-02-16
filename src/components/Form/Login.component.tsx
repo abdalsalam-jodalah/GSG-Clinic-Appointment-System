@@ -3,6 +3,7 @@ import { AuthContext } from "../../providers/authProvider";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
 
+
 const Login = () => {
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ const Login = () => {
     const user = storedUsers.find(
       (u: any) => u.username === formData.username && u.password === formData.password && u.role === formData.role
     );
-
+    
     if (!user) {
       setError("Invalid credentials! Please try again.");
       return;
@@ -32,7 +33,7 @@ const Login = () => {
 
     // Login user
     login(user);
-    navigate(user.role === "doctor" ? "/doctor-dashboard" : "/patient-dashboard");
+    navigate(user.role === "doctor" ? "/dashboard" : "/user");
   };
 
   return (
