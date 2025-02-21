@@ -1,9 +1,9 @@
-import { Form } from "react-router-dom"
+import FormPatient from "../components/Form/form.component"
 
 const FormScreen = () => {
     return (
         <>
-            <Form />
+            <FormPatient />
         </>
     )
 }

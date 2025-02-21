@@ -18,7 +18,7 @@ const INITIAL_APPOINTMENT: Appointment = {
   notes: "",
 };
 
-const Form = () => {
+const FormPatient = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState<Appointment>(INITIAL_APPOINTMENT);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -122,4 +122,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default FormPatient;
