@@ -14,3 +14,36 @@
     max-height: 500px;
 }
 
+.form-container h1{
+    margin-bottom: 1rem;
+}
+
+.form-container input{
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #484848;
+    border-radius: 5px;
+}
+
+.form-container button{
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 1rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+}
+
+.form-container button:hover{
+    background-color: #0056b3;
+}
+
+.form-container .error{
+    color: red;
+    margin-bottom: 1rem;
+}
+
+
