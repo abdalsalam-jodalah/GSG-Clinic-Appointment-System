@@ -29,7 +29,12 @@ const DashboardComponent: React.FC = () => {
     const storedAppointments = JSON.parse(
       localStorage.getItem("appointments-manage") || "[]"
     );
-    setAppointments(storedAppointments);
+        // Convert date strings into Date objects
+        const parsedAppointments = storedAppointments.map((appointment: any) => ({
+          ...appointment,
+          date: new Date(appointment.date), // Convert to Date object
+        }));
+    setAppointments(parsedAppointments);
   }, []);
   const today = new Date().toISOString().split("T")[0];
   const appointmentsToday = appointments.filter(

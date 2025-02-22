@@ -11,26 +11,25 @@ const SignUpComponent = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         setError(null);
 
-        try {
-            const response = await fetch("/api/auth/register", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(formData),
-            });
+        // Get existing users from localStorage or initialize empty array
+        const existingUsers = JSON.parse(localStorage.getItem("users") || "[]");
 
-            const result = await response.json();
-            if (!response.ok) throw new Error(result.message || "Signup failed");
-
-            setSuccess(true);
-            setTimeout(() => navigate("/login"), 2000);
-
-        } catch (err) {
-            setError((err as Error).message);
+        // Check if user already exists
+        if (existingUsers.some((user: any) => user.username === formData.username)) {
+            setError("Username already exists! Try another.");
+            return;
         }
+
+        // Save new user to localStorage
+        const updatedUsers = [...existingUsers, formData];
+        localStorage.setItem("users", JSON.stringify(updatedUsers));
+
+        setSuccess(true);
+        setTimeout(() => navigate("/login"), 2000);
     };
 
     return (

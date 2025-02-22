@@ -29,17 +29,19 @@ export const AuthProvider = (props: { children: React.ReactNode }) => {
     }, []);
 
     const login = (data: IUser) => {
-        if (data.email.length >= 3) {
-            setUser(data);
-            localStorage.setItem("user", JSON.stringify(data));
-        } else {
-            setUser(null);
-        }
+        // if (!data || !data.email || data.email.length < 3) {
+        //     setUser(null);
+        //     return;
+        // }
+        console.log(data);
+        setUser(data);
+        localStorage.setItem("user", JSON.stringify(data));
     };
 
     const logout = () => {
         setUser(null);
         localStorage.removeItem("user");
+        window.location.href = "/login";
     };
 
     const value = { user, login, logout };

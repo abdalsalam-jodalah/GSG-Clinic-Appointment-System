@@ -1,9 +1,9 @@
-import Form from '../components/form/form.component'
+import FormPatient from "../components/Form/form.component"
 
 const FormScreen = () => {
     return (
         <>
-            <Form />
+            <FormPatient />
         </>
     )
 }

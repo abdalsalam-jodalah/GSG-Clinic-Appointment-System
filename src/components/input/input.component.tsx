@@ -17,7 +17,7 @@ const Input = (props: IProps) => {
       <label>{props.label}</label>
 
       {props.type === "select" && props.options ? (
-        <select name={props.name} value={props.value} onChange={props.onChange}>
+        <select name={props.name} value={props.value} onChange={props.onChange} style={{ width: "100%", padding: "0.5rem", borderRadius: "0.25rem", border: "1px solid #ccc" }}>
           {props.options.map((option) => (
             <option key={option} value={option}>
               {option}
@@ -29,6 +29,12 @@ const Input = (props: IProps) => {
           name={props.name}
           value={props.value}
           onChange={props.onChange}
+          style={{
+            width: "100%",
+            padding: "0.5rem",
+            borderRadius: "0.25rem",
+            border: "1px solid #ccc",
+          }}
         />
       ) : (
         <input
@@ -37,6 +43,12 @@ const Input = (props: IProps) => {
           value={props.value}
           onChange={props.onChange}
           required
+          style={{
+            width: "100%",
+            padding: "0.5rem",
+            borderRadius: "0.25rem",
+            border: "1px solid #ccc",
+          }}
         />
       )}
     </div>

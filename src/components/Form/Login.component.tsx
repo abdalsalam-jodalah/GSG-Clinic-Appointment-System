@@ -3,6 +3,7 @@ import { AuthContext } from "../../providers/authProvider";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
 
+
 const Login = () => {
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -13,26 +14,26 @@ const Login = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
 
-    try {
-      const response = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+    // Retrieve users from localStorage
+    const storedUsers = JSON.parse(localStorage.getItem("users") || "[]");
 
-      const result = await response.json();
-      if (!response.ok) throw new Error(result.message || "Login failed");
-
-      login(result.user);
-      navigate(result.user.role === "doctor" ? "/doctor-dashboard" : "/patient-dashboard");
-
-    } catch (err) {
-      setError((err as Error).message);
+    // Check if user exists
+    const user = storedUsers.find(
+      (u: any) => u.username === formData.username && u.password === formData.password && u.role === formData.role
+    );
+    
+    if (!user) {
+      setError("Invalid credentials! Please try again.");
+      return;
     }
+
+    // Login user
+    login(user);
+    navigate(user.role === "doctor" ? "/dashboard" : "/user");
   };
 
   return (
